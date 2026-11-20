@@ -1,0 +1,531 @@
+{
+  "steps": [
+    "survey",
+    "incomplete",
+    "lab-revision",
+    "realignment",
+    "return"
+  ],
+  "routes": {
+    "common": {
+      "GET /field/W4?page=1": {
+        "status": 200,
+        "body": {
+          "catalog": "F1",
+          "next": "/field/W4?page=2",
+          "entries": [
+            {
+              "contractor": "D1",
+              "lot": "S1",
+              "barcode": "T17",
+              "alignment": "R1",
+              "chainage": 2350,
+              "bore": "K1",
+              "depth": 3.1,
+              "seal": "A6",
+              "recordedAt": "2026-12-01T08:00:00Z"
+            },
+            {
+              "contractor": "D1",
+              "lot": "S1",
+              "barcode": "T28",
+              "alignment": "R1",
+              "chainage": 2350,
+              "bore": "K1",
+              "depth": 5.6,
+              "seal": "B7",
+              "recordedAt": "2026-12-01T08:00:00Z"
+            }
+          ]
+        }
+      },
+      "GET /field/W4?page=2": {
+        "status": 200,
+        "body": {
+          "catalog": "F1",
+          "next": null,
+          "entries": [
+            {
+              "contractor": "D2",
+              "lot": "S9",
+              "barcode": "T17",
+              "alignment": "R1",
+              "chainage": 2490,
+              "bore": "K1",
+              "depth": 4.4,
+              "seal": "X1",
+              "recordedAt": "2026-12-01T08:04:00Z"
+            }
+          ]
+        }
+      },
+      "GET /route/current": {
+        "status": 200,
+        "body": {
+          "alignment": "R1",
+          "points": {
+            "P1": 2350,
+            "P2": 2490
+          },
+          "requirements": [
+            {
+              "point": "P1",
+              "fromDepth": 2,
+              "toDepth": 5,
+              "tests": [
+                "salt",
+                "moisture"
+              ]
+            },
+            {
+              "point": "P1",
+              "fromDepth": 5,
+              "toDepth": 7,
+              "tests": [
+                "moisture"
+              ]
+            }
+          ]
+        }
+      },
+      "GET /route/correspondences": {
+        "status": 200,
+        "body": []
+      },
+      "GET /lab/intake": {
+        "status": 200,
+        "body": [
+          {
+            "intake": "L1",
+            "reference": [
+              "D1",
+              "S1",
+              "T17"
+            ],
+            "accepted": true,
+            "seal": "A6",
+            "availableGrams": 320
+          },
+          {
+            "intake": "L2",
+            "reference": [
+              "D1",
+              "S1",
+              "T28"
+            ],
+            "accepted": true,
+            "seal": "B7",
+            "availableGrams": 200
+          },
+          {
+            "intake": "L3",
+            "reference": [
+              "D2",
+              "S9",
+              "T17"
+            ],
+            "accepted": false,
+            "seal": "X9",
+            "availableGrams": 0
+          }
+        ]
+      },
+      "GET /lab/splits": {
+        "status": 200,
+        "body": [
+          {
+            "id": "Q1",
+            "parent": "L1",
+            "grams": 120
+          },
+          {
+            "id": "Q2",
+            "parent": "L1",
+            "grams": 60
+          },
+          {
+            "id": "Q3",
+            "parent": "L2",
+            "grams": 100
+          }
+        ]
+      },
+      "GET /lab/reports": {
+        "status": 200,
+        "body": [
+          {
+            "id": "Z1",
+            "sample": "Q1",
+            "type": "salt",
+            "value": 0.8,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z2",
+            "sample": "Q2",
+            "type": "moisture",
+            "value": 8.4,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z3",
+            "sample": "Q3",
+            "type": "moisture",
+            "value": 9.1,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          }
+        ]
+      },
+      "GET /lab/retest-requests": {
+        "status": 200,
+        "body": [
+          {
+            "id": "W-1",
+            "intake": "L1",
+            "grams": 200,
+            "status": "requested",
+            "receivedAt": "2026-12-03T10:15:00Z"
+          },
+          {
+            "id": "W-2",
+            "intake": "L1",
+            "grams": 140,
+            "status": "requested",
+            "receivedAt": "2026-12-03T10:20:00Z"
+          }
+        ]
+      }
+    },
+    "survey": {},
+    "incomplete": {
+      "GET /field/W4?page=2": {
+        "status": 503,
+        "body": {
+          "message": "来源暂不可用"
+        }
+      }
+    },
+    "lab-revision": {
+      "GET /lab/reports": {
+        "status": 200,
+        "body": [
+          {
+            "id": "Z1",
+            "sample": "Q1",
+            "type": "salt",
+            "value": 0.8,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z2",
+            "sample": "Q2",
+            "type": "moisture",
+            "value": 8.4,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z3",
+            "sample": "Q3",
+            "type": "moisture",
+            "value": 9.1,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z4",
+            "sample": "Q1",
+            "type": "salt",
+            "replaces": "Z1",
+            "withdrawn": true,
+            "recordedAt": "2026-12-03T10:00:00Z"
+          }
+        ]
+      }
+    },
+    "realignment": {
+      "GET /route/current": {
+        "status": 200,
+        "body": {
+          "alignment": "R2",
+          "points": {
+            "P3": 2310,
+            "P4": 2380
+          },
+          "requirements": [
+            {
+              "point": "P3",
+              "fromDepth": 2,
+              "toDepth": 5,
+              "tests": [
+                "salt",
+                "moisture"
+              ]
+            },
+            {
+              "point": "P3",
+              "fromDepth": 5,
+              "toDepth": 7,
+              "tests": [
+                "moisture"
+              ]
+            },
+            {
+              "point": "P4",
+              "fromDepth": 2,
+              "toDepth": 5,
+              "tests": [
+                "salt"
+              ]
+            }
+          ]
+        }
+      },
+      "GET /route/correspondences": {
+        "status": 200,
+        "body": [
+          {
+            "old": "R1",
+            "new": "R2",
+            "start": 2340,
+            "end": 2370,
+            "minDepth": 2,
+            "maxDepth": 5,
+            "point": "P3",
+            "confirmed": false
+          },
+          {
+            "old": "R1",
+            "new": "R2",
+            "start": 2340,
+            "end": 2360,
+            "minDepth": 3,
+            "maxDepth": 5,
+            "point": "P4",
+            "confirmed": false
+          }
+        ]
+      },
+      "GET /lab/reports": {
+        "status": 200,
+        "body": [
+          {
+            "id": "Z1",
+            "sample": "Q1",
+            "type": "salt",
+            "value": 0.8,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z2",
+            "sample": "Q2",
+            "type": "moisture",
+            "value": 8.4,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z3",
+            "sample": "Q3",
+            "type": "moisture",
+            "value": 9.1,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z4",
+            "sample": "Q1",
+            "type": "salt",
+            "replaces": "Z1",
+            "withdrawn": true,
+            "recordedAt": "2026-12-03T10:00:00Z"
+          }
+        ]
+      }
+    },
+    "return": {
+      "GET /route/current": {
+        "status": 200,
+        "body": {
+          "alignment": "R2",
+          "points": {
+            "P3": 2310,
+            "P4": 2380
+          },
+          "requirements": [
+            {
+              "point": "P3",
+              "fromDepth": 2,
+              "toDepth": 5,
+              "tests": [
+                "salt",
+                "moisture"
+              ]
+            },
+            {
+              "point": "P3",
+              "fromDepth": 5,
+              "toDepth": 7,
+              "tests": [
+                "moisture"
+              ]
+            },
+            {
+              "point": "P4",
+              "fromDepth": 2,
+              "toDepth": 5,
+              "tests": [
+                "salt"
+              ]
+            }
+          ]
+        }
+      },
+      "GET /route/correspondences": {
+        "status": 200,
+        "body": [
+          {
+            "old": "R1",
+            "new": "R2",
+            "start": 2340,
+            "end": 2370,
+            "minDepth": 2,
+            "maxDepth": 5,
+            "point": "P3",
+            "confirmed": true
+          },
+          {
+            "old": "R1",
+            "new": "R2",
+            "start": 2340,
+            "end": 2360,
+            "minDepth": 3,
+            "maxDepth": 5,
+            "point": "P4",
+            "confirmed": false
+          }
+        ]
+      },
+      "GET /lab/splits": {
+        "status": 200,
+        "body": [
+          {
+            "id": "Q1",
+            "parent": "L1",
+            "grams": 120
+          },
+          {
+            "id": "Q2",
+            "parent": "L1",
+            "grams": 60
+          },
+          {
+            "id": "Q3",
+            "parent": "L2",
+            "grams": 100
+          },
+          {
+            "id": "Q4",
+            "parent": "L1",
+            "grams": 140
+          }
+        ]
+      },
+      "GET /lab/intake": {
+        "status": 200,
+        "body": [
+          {
+            "intake": "L1",
+            "reference": [
+              "D1",
+              "S1",
+              "T17"
+            ],
+            "accepted": true,
+            "seal": "A6",
+            "availableGrams": 180
+          },
+          {
+            "intake": "L2",
+            "reference": [
+              "D1",
+              "S1",
+              "T28"
+            ],
+            "accepted": true,
+            "seal": "B7",
+            "availableGrams": 200
+          },
+          {
+            "intake": "L3",
+            "reference": [
+              "D2",
+              "S9",
+              "T17"
+            ],
+            "accepted": false,
+            "seal": "X9",
+            "availableGrams": 0
+          }
+        ]
+      },
+      "GET /lab/reports": {
+        "status": 200,
+        "body": [
+          {
+            "id": "Z1",
+            "sample": "Q1",
+            "type": "salt",
+            "value": 0.8,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z2",
+            "sample": "Q2",
+            "type": "moisture",
+            "value": 8.4,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z3",
+            "sample": "Q3",
+            "type": "moisture",
+            "value": 9.1,
+            "recordedAt": "2026-12-02T10:00:00Z"
+          },
+          {
+            "id": "Z4",
+            "sample": "Q1",
+            "type": "salt",
+            "replaces": "Z1",
+            "withdrawn": true,
+            "recordedAt": "2026-12-03T10:00:00Z"
+          },
+          {
+            "id": "Z5",
+            "sample": "Q4",
+            "type": "salt",
+            "value": 0.79,
+            "recordedAt": "2026-12-04T10:00:00Z"
+          }
+        ]
+      },
+      "GET /lab/retest-requests": {
+        "status": 200,
+        "body": [
+          {
+            "id": "W-1",
+            "intake": "L1",
+            "grams": 200,
+            "status": "withdrawn",
+            "receivedAt": "2026-12-03T10:15:00Z"
+          },
+          {
+            "id": "W-2",
+            "intake": "L1",
+            "grams": 140,
+            "status": "issued",
+            "receivedAt": "2026-12-03T10:20:00Z",
+            "split": "Q4"
+          }
+        ]
+      }
+    }
+  }
+}

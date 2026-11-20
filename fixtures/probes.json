@@ -1,0 +1,39 @@
+[
+  {
+    "step": "survey",
+    "path": "/field/W4?page=2",
+    "field": [
+      "entries",
+      0,
+      "barcode"
+    ],
+    "value": "T17"
+  },
+  {
+    "step": "lab-revision",
+    "path": "/lab/reports",
+    "field": [
+      3,
+      "replaces"
+    ],
+    "value": "Z1"
+  },
+  {
+    "step": "return",
+    "path": "/route/correspondences",
+    "field": [
+      0,
+      "confirmed"
+    ],
+    "value": true
+  },
+  {
+    "step": "return",
+    "path": "/lab/intake",
+    "field": [
+      0,
+      "availableGrams"
+    ],
+    "value": 180
+  }
+]
